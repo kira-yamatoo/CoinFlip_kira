@@ -1,6 +1,7 @@
 #include "mainscene.h"
 #include "ui_mainscene.h"
 #include <QPainter>
+#include "mypushbutton.h"
 MainScene::MainScene(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainScene)
@@ -14,6 +15,15 @@ MainScene::MainScene(QWidget *parent)
 
     connect(ui->actionQuit,&QAction::triggered,[=](){
         this->close();
+    });
+
+    MyPushButton *startBtn = new MyPushButton(":/res/MenuSceneStartButton.png");
+    startBtn->setParent(this);
+    startBtn->move(this->width()*0.5 -startBtn->width()*0.5,this->height() * 0.7);
+
+    connect(startBtn,&QPushButton::clicked,[=](){
+        startBtn->zoom(true);
+        startBtn->zoom(false);
     });
 }
 
