@@ -31,8 +31,9 @@
    </widget>
    <widget class="QMenu" name="menu_2">
     <property name="title">
-     <string>关于</string>
+     <string>版本</string>
     </property>
+    <addaction name="actionInfo"/>
    </widget>
    <addaction name="menu"/>
    <addaction name="menu_2"/>
@@ -41,6 +42,11 @@
   <action name="actionQuit">
    <property name="text">
     <string>退出</string>
+   </property>
+  </action>
+  <action name="actionInfo">
+   <property name="text">
+    <string>关于</string>
    </property>
   </action>
  </widget>

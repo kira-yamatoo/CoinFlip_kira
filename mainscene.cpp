@@ -3,6 +3,7 @@
 #include <QPainter>
 #include "mypushbutton.h"
 #include <QTimer>
+#include <QMessageBox>
 MainScene::MainScene(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainScene)
@@ -16,6 +17,10 @@ MainScene::MainScene(QWidget *parent)
 
     connect(ui->actionQuit,&QAction::triggered,[=](){
         this->close();
+    });
+
+    connect(ui->actionInfo,&QAction::triggered,[=](){
+        QMessageBox::information(this,"关于版本","CoinFlip_kira,Version:0x0001");
     });
 
     MyPushButton *startBtn = new MyPushButton(":/res/MenuSceneStartButton.png");
