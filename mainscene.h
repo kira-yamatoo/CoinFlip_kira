@@ -15,6 +15,8 @@ public:
     MainScene(QWidget *parent = nullptr);
     ~MainScene();
 
+    void paintEvent(QPaintEvent*);
+
 private:
     Ui::MainScene *ui;
 };
