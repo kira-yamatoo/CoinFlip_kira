@@ -6,7 +6,7 @@
 Chooselevelscene::Chooselevelscene(QWidget *parent) : QMainWindow(parent)
 {
     this->setWindowTitle("关卡选择");
-    this->setWindowIcon(QIcon(":/res/Coin001.png"));
+    this->setWindowIcon(QIcon(":/res/Coin0001.png"));
     this->setFixedSize(320,588);
 
     QMenuBar *menubar = new QMenuBar(this);
@@ -25,11 +25,7 @@ Chooselevelscene::Chooselevelscene(QWidget *parent) : QMainWindow(parent)
     backBtn->move((this->width()-backBtn->width()),(this->height()-backBtn->height()));
 
     connect(backBtn,&QPushButton::clicked,[=](){
-        QTimer::singleShot(300,this,[=](){
-            this->hide();
-
-        });
-
+        emit this->chooseSceneBack();
     });
 
 }

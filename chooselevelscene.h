@@ -12,6 +12,7 @@ public:
     void paintEvent(QPaintEvent *);
 
 signals:
+    void chooseSceneBack();
 
 };
 

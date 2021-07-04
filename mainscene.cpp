@@ -28,6 +28,14 @@ MainScene::MainScene(QWidget *parent)
     startBtn->move(this->width()*0.5 -startBtn->width()*0.5,this->height() * 0.7);
 
     chooselevelscene = new Chooselevelscene();
+
+    connect(chooselevelscene,&Chooselevelscene::chooseSceneBack,[=](){
+        QTimer::singleShot(300,this,[=](){
+             chooselevelscene->hide();
+             this->show();
+        });
+    });
+
     connect(startBtn,&QPushButton::clicked,[=](){
         startBtn->zoom(true);
         startBtn->zoom(false);
