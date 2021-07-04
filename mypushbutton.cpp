@@ -6,19 +6,7 @@ MyPushButton::MyPushButton(QString normalImg,QString pressImg)
     this->normalImgPath= normalImg;
     this->pressImgPath= pressImg;
 
-    QPixmap pixmap;
-
-    bool flag= pixmap.load(normalImg);
-
-    if(!flag)
-    {
-        qDebug()<< "MyPushButton:image load fall";
-        return;
-    }
-    this->setFixedSize(pixmap.width(),pixmap.height());
-    this->setStyleSheet("QPushButton{Border:0px}");
-    this->setIcon(pixmap);
-    this->setIconSize(QSize(pixmap.width(),pixmap.height()));
+    loadImg(normalImg);
 
 }
 
@@ -41,5 +29,40 @@ void MyPushButton::zoom(bool flag)
     }
     animation->setEasingCurve(QEasingCurve::OutBounce);
     animation->start();
+
+}
+
+void MyPushButton::mousePressEvent(QMouseEvent *e)
+{
+    if(this->pressImgPath!="")
+    {
+        loadImg(pressImgPath);
+    }
+
+    return QPushButton::mousePressEvent(e);
+}
+
+void MyPushButton::mouseReleaseEvent(QMouseEvent *e)
+{
+    loadImg(normalImgPath);
+
+    return QPushButton::mouseReleaseEvent(e);
+}
+
+void MyPushButton::loadImg(QString imgPath)
+{
+    QPixmap pixmap;
+
+    bool flag= pixmap.load(imgPath);
+
+    if(!flag)
+    {
+        qDebug()<< "MyPushButton:image load fall";
+        return;
+    }
+    this->setFixedSize(pixmap.width(),pixmap.height());
+    this->setStyleSheet("QPushButton{Border:0px}");
+    this->setIcon(pixmap);
+    this->setIconSize(QSize(pixmap.width(),pixmap.height()));
 
 }
