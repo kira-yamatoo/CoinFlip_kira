@@ -3,7 +3,10 @@
 #include <QPainter>
 #include "mypushbutton.h"
 #include <QTimer>
-Chooselevelscene::Chooselevelscene(QWidget *parent) : QMainWindow(parent)
+#include <QLabel>
+#include <QDebug>
+
+ChooseLevelScene::ChooseLevelScene(QWidget *parent) : QMainWindow(parent)
 {
     this->setWindowTitle("关卡选择");
     this->setWindowIcon(QIcon(":/res/Coin0001.png"));
@@ -28,9 +31,32 @@ Chooselevelscene::Chooselevelscene(QWidget *parent) : QMainWindow(parent)
         emit this->chooseSceneBack();
     });
 
+    //绘制关卡选择按钮
+    for(int i=0; i<20; i++)
+    {
+        MyPushButton *levelBtn =new MyPushButton(":/res/LevelIcon.png");
+        levelBtn->setParent(this);
+        levelBtn->move(25 + i%4 *70, 130 + i/4*70);
+
+        connect(levelBtn,&QPushButton::clicked,[=](){
+            qDebug()<<i+1;
+        });
+
+        //绘制标签
+        QLabel *label = new QLabel();
+        label->setParent(this);
+        label->setFixedSize(levelBtn->width(),levelBtn->height());
+        label->setText(QString::number(i +1));
+        label->move(25 + i%4 *70, 130 + i/4*70);
+        label->setAlignment(Qt::AlignHCenter | Qt::AlignVCenter);
+        //设置穿透鼠标事件
+        label->setAttribute(Qt::WA_TransparentForMouseEvents);
+
+    }
+
 }
 
-void Chooselevelscene::paintEvent(QPaintEvent*)
+void ChooseLevelScene::paintEvent(QPaintEvent*)
 {
     //绘制背景 以及logo
     QPainter painter(this);

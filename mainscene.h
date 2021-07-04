@@ -17,7 +17,7 @@ public:
 
     void paintEvent(QPaintEvent*);
 
-    Chooselevelscene *chooselevelscene = NULL;
+    ChooseLevelScene *chooseLevelScene = NULL;
 
 private:
     Ui::MainScene *ui;

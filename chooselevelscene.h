@@ -3,11 +3,11 @@
 
 #include <QMainWindow>
 
-class Chooselevelscene : public QMainWindow
+class ChooseLevelScene : public QMainWindow
 {
     Q_OBJECT
 public:
-    explicit Chooselevelscene(QWidget *parent = nullptr);
+    explicit ChooseLevelScene(QWidget *parent = nullptr);
 
     void paintEvent(QPaintEvent *);
 
