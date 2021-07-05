@@ -5,7 +5,7 @@
 #include <QTimer>
 #include <QLabel>
 #include <QDebug>
-
+#include "playscene.h"
 ChooseLevelScene::ChooseLevelScene(QWidget *parent) : QMainWindow(parent)
 {
     this->setWindowTitle("关卡选择");
@@ -39,7 +39,18 @@ ChooseLevelScene::ChooseLevelScene(QWidget *parent) : QMainWindow(parent)
         levelBtn->move(25 + i%4 *70, 130 + i/4*70);
 
         connect(levelBtn,&QPushButton::clicked,[=](){
-            qDebug()<<i+1;
+            playScene =new PlayScene(i+ 1);
+            this->hide();
+            playScene->show();
+
+            //关卡选择场景返回至主场景
+            connect(playScene,&PlayScene::playSceneBack,[=](){
+                QTimer::singleShot(300,this,[=](){
+                    delete playScene;
+                    playScene =NULL;
+                    this->show();
+                });
+            });
         });
 
         //绘制标签
