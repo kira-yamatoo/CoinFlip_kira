@@ -10,7 +10,9 @@ public:
     PlayScene(int levelNum);
     void paintEvent(QPaintEvent*);
 
+
     int levelIndex;
+    int gameArray[4][4];
 
 signals:
     void playSceneBack();

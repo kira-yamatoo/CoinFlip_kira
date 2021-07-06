@@ -1,0 +1,24 @@
+#ifndef DATACONFIG_H
+#define DATACONFIG_H
+
+#include <QObject>
+#include <QMap>
+#include <QVector>
+
+class DataConfig : public QObject
+{
+    Q_OBJECT
+public:
+    explicit DataConfig(QObject *parent = 0);
+    QVector< QVector<int>> pushData(int array[4][4]);
+
+
+    QMap<int, QVector< QVector<int> > >mData;
+
+
+signals:
+
+public slots:
+};
+
+#endif // DATACONFIG_H
