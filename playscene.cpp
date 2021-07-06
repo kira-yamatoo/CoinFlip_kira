@@ -46,13 +46,13 @@ PlayScene::PlayScene(int levelNum)
 
     //初始化关卡二位数组
     DataConfig dataConfig;
-//    for(int i=0;i<4;i++)
-//    {
-//        for (int j=0;j<4;j++)
-//        {
-//            gameArray[i][j]=dataConfig.mData[levelIndex][i][j];
-//        }
-//    }
+    for(int i=0;i<4;i++)
+    {
+        for (int j=0;j<4;j++)
+        {
+            gameArray[i][j]=dataConfig.mData[levelIndex][i][j];
+        }
+    }
 
     //绘制表格
     for(int i=0;i<4; i++)
@@ -68,13 +68,22 @@ PlayScene::PlayScene(int levelNum)
 
             //绘制金币  1金币 0银币
             QString imgPath= ":/res/Coin0001.png";
-            if(dataConfig.mData[levelIndex][i][j]==0)
+            if(gameArray[i][j]==0)
             {
                 imgPath= ":/res/Coin0008.png";
             }
             MyCoin *coin =new MyCoin(imgPath);
             coin->setParent(this);
             coin->move(2+ 60+ i*50 , 2+ 200+j*50);
+            coin->pos_x= i;
+            coin->pos_y= j;
+            coin->coinFlag=gameArray[i][j];
+
+            connect(coin,&MyCoin::clicked,[=](){
+                coin->changeFlag();
+//                gameArray[i][j]=!gameArray[i][j];
+
+            });
 
         }
     }
