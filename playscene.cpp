@@ -78,10 +78,35 @@ PlayScene::PlayScene(int levelNum)
             coin->pos_x= i;
             coin->pos_y= j;
             coin->coinFlag=gameArray[i][j];
+            coinBtn[i][j]=coin;
 
             connect(coin,&MyCoin::clicked,[=](){
                 coin->changeFlag();
-//                gameArray[i][j]=!gameArray[i][j];
+                gameArray[i][j]=!gameArray[i][j];
+
+                QTimer::singleShot(300,this,[=](){
+                    if(coin->pos_x+1< 4)
+                    {
+                        coinBtn[coin->pos_x+1][coin->pos_y]->changeFlag();
+                        gameArray[coin->pos_x+1][coin->pos_y] =!gameArray[coin->pos_x+1][coin->pos_y];
+                    }
+                    if(coin->pos_x-1> 0)
+                    {
+                        coinBtn[coin->pos_x-1][coin->pos_y]->changeFlag();
+                        gameArray[coin->pos_x-1][coin->pos_y] =!gameArray[coin->pos_x-1][coin->pos_y];
+                    }
+                    if(coin->pos_y+1< 4)
+                    {
+                        coinBtn[coin->pos_x][coin->pos_y+1]->changeFlag();
+                        gameArray[coin->pos_x][coin->pos_y+1] =!gameArray[coin->pos_x][coin->pos_y+1];
+                    }
+                    if(coin->pos_y-1> 0)
+                    {
+                        coinBtn[coin->pos_x][coin->pos_y-1]->changeFlag();
+                        gameArray[coin->pos_x][coin->pos_y-1] =!gameArray[coin->pos_x][coin->pos_y-1];
+                    }
+
+                });
 
             });
 

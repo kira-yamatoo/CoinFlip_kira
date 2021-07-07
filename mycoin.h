@@ -10,16 +10,17 @@ public:
     MyCoin(QString btnImg);
 
     void changeFlag();
+    void mousePressEvent(QMouseEvent *e);
 
     int pos_x;
     int pos_y;
     bool coinFlag;
+    bool isAnimation= false;
     int min=1;
     int max=8;
 
     QTimer *timer;
     QTimer *timer2;
-
 
 
 signals:

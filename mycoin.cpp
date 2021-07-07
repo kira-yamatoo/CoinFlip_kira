@@ -38,6 +38,7 @@ MyCoin::MyCoin(QString btnImg)
             this->min=1;
             this->max=8;
             timer->stop();
+            isAnimation=!isAnimation;
         }
 
     });
@@ -59,10 +60,10 @@ MyCoin::MyCoin(QString btnImg)
             this->min=1;
             this->max=8;
             timer2->stop();
+            isAnimation=!isAnimation;
         }
 
     });
-
 
 }
 
@@ -77,5 +78,18 @@ void MyCoin::changeFlag()
         timer2->start(30);
     }
     coinFlag=!coinFlag;
+    isAnimation=!isAnimation;
 
+}
+
+void MyCoin::mousePressEvent(QMouseEvent *e)
+{
+    //当动画执行中 则拦截鼠标事件并返回
+    if(isAnimation)
+    {
+        return;
+    }
+
+    //返还给父类处理event
+    return QPushButton::mousePressEvent(e);
 }

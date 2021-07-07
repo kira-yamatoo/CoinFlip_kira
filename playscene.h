@@ -2,6 +2,7 @@
 #define PLAYSCENE_H
 
 #include <QMainWindow>
+#include "mycoin.h"
 
 class PlayScene : public QMainWindow
 {
@@ -12,6 +13,7 @@ public:
 
     int levelIndex;
     int gameArray[4][4];
+    MyCoin *coinBtn[4][4];
 
 
 signals:
