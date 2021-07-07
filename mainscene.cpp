@@ -35,8 +35,10 @@ MainScene::MainScene(QWidget *parent)
         startBtn->zoom(true);
         startBtn->zoom(false);
 
+        //进入关卡选择场景
         QTimer::singleShot(450,this,[=](){
             this->hide();
+            chooseLevelScene->setGeometry(this->geometry());
             chooseLevelScene->show();
         });
 
@@ -49,6 +51,7 @@ MainScene::MainScene(QWidget *parent)
     connect(chooseLevelScene,&ChooseLevelScene::chooseSceneBack,[=](){
         QTimer::singleShot(300,this,[=](){
              chooseLevelScene->hide();
+             this->setGeometry(chooseLevelScene->geometry());
              this->show();
         });
     });

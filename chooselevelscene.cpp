@@ -40,12 +40,14 @@ ChooseLevelScene::ChooseLevelScene(QWidget *parent) : QMainWindow(parent)
 
         connect(levelBtn,&QPushButton::clicked,[=](){
             playScene =new PlayScene(i);
+            playScene->setGeometry(this->geometry());
             playScene->show();
             this->hide();
 
             //关卡选择场景返回至主场景
             connect(playScene,&PlayScene::playSceneBack,[=](){
                 QTimer::singleShot(300,this,[=](){
+                    this->setGeometry(playScene->geometry());
                     this->show();
                     delete playScene;
                     playScene =NULL;
