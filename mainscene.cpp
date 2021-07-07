@@ -23,7 +23,7 @@ MainScene::MainScene(QWidget *parent)
 
     //菜单 关于
     connect(ui->actionInfo,&QAction::triggered,[=](){
-        QMessageBox::information(this,"关于版本","CoinFlip_kira,Version:0x0001");
+        QMessageBox::information(this,"关于版本","CoinFlip_kira,Version:0x1a0f4ccf");
     });
 
     //添加音效
