@@ -6,6 +6,7 @@
 #include <QLabel>
 #include <QDebug>
 #include "playscene.h"
+#include <QSound>
 ChooseLevelScene::ChooseLevelScene(QWidget *parent) : QMainWindow(parent)
 {
     this->setWindowTitle("关卡选择");
@@ -21,6 +22,8 @@ ChooseLevelScene::ChooseLevelScene(QWidget *parent) : QMainWindow(parent)
         this->close();
     });
 
+    //返回音效
+    QSound *backSound =new QSound(":/res/BackButtonSound.wav",this);
 
     //返回按钮
     MyPushButton *backBtn =new MyPushButton(":/res/BackButton.png",":/res/BackButtonSelected.png");
@@ -29,7 +32,11 @@ ChooseLevelScene::ChooseLevelScene(QWidget *parent) : QMainWindow(parent)
 
     connect(backBtn,&QPushButton::clicked,[=](){
         emit this->chooseSceneBack();
+        backSound->play();
     });
+
+    //关卡选择音效
+    QSound *chooseSound =new QSound(":/res/TapButtonSound.wav",this);
 
     //绘制关卡选择按钮
     for(int i=0; i<20; i++)
@@ -43,6 +50,8 @@ ChooseLevelScene::ChooseLevelScene(QWidget *parent) : QMainWindow(parent)
             playScene->setGeometry(this->geometry());
             playScene->show();
             this->hide();
+
+            chooseSound->play();
 
             //关卡选择场景返回至主场景
             connect(playScene,&PlayScene::playSceneBack,[=](){

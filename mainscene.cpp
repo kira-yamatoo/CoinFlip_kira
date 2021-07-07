@@ -4,6 +4,7 @@
 #include "mypushbutton.h"
 #include <QTimer>
 #include <QMessageBox>
+#include <QSound>
 MainScene::MainScene(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainScene)
@@ -25,6 +26,9 @@ MainScene::MainScene(QWidget *parent)
         QMessageBox::information(this,"关于版本","CoinFlip_kira,Version:0x0001");
     });
 
+    //添加音效
+    QSound *startSound =new QSound(":/res/ConFlipSound.wav",this);
+
     //开始按钮
     MyPushButton *startBtn = new MyPushButton(":/res/MenuSceneStartButton.png");
     startBtn->setParent(this);
@@ -34,6 +38,8 @@ MainScene::MainScene(QWidget *parent)
     connect(startBtn,&QPushButton::clicked,[=](){
         startBtn->zoom(true);
         startBtn->zoom(false);
+
+        startSound->play();
 
         //进入关卡选择场景
         QTimer::singleShot(450,this,[=](){

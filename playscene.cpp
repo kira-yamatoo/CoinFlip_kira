@@ -7,6 +7,7 @@
 #include "mycoin.h"
 #include "dataconfig.h"
 #include <QPropertyAnimation>
+#include <QSound>
 
 PlayScene::PlayScene(int levelNum)
 {
@@ -24,6 +25,9 @@ PlayScene::PlayScene(int levelNum)
         this->close();
     });
 
+    //返回音效
+    QSound *backSound= new QSound(":/res/BackButtonSound.wav",this);
+
     //返回按钮
     MyPushButton *backBtn =new MyPushButton(":/res/BackButton.png",":/res/BackButtonSelected.png");
     backBtn->setParent(this);
@@ -31,6 +35,7 @@ PlayScene::PlayScene(int levelNum)
 
     connect(backBtn,&QPushButton::clicked,[=](){
         emit this->playSceneBack();
+        backSound->play();
     });
 
     //关卡标签
@@ -53,6 +58,12 @@ PlayScene::PlayScene(int levelNum)
     winLabel->setPixmap(tmpPix);
     winLabel->setParent(this);
     winLabel->move( (this->width() - tmpPix.width())*0.5 , -tmpPix.height());
+
+    //过关音效
+    QSound *winSound= new QSound(":/res/LevelWinSound.wav",this);
+
+    //翻转金币音效
+    QSound *flidSound = new QSound(":/res/ConFlipSound.wav", this);
 
     //初始化关卡二位数组
     DataConfig dataConfig;
@@ -94,6 +105,8 @@ PlayScene::PlayScene(int levelNum)
                 coin->changeFlag();
                 gameArray[i][j]=!gameArray[i][j];
 
+                flidSound->play();
+
                 //延时后 翻转四周金币
                 QTimer::singleShot(300,this,[=](){
                     if(coin->pos_x+1< 4)
@@ -131,6 +144,8 @@ PlayScene::PlayScene(int levelNum)
                     }
                     if(isWin)
                     {
+                        winSound->play();
+
                         QPropertyAnimation * animation1 =  new QPropertyAnimation(winLabel,"geometry");
                         animation1->setDuration(1000);
                         animation1->setStartValue(QRect(winLabel->x(),winLabel->y(),winLabel->width(),winLabel->height()));
@@ -145,7 +160,6 @@ PlayScene::PlayScene(int levelNum)
                                 coinBtn[i][j]->isWin=true;
                             }
                         }
-
 
                     }
 
