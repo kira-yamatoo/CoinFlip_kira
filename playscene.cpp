@@ -6,6 +6,7 @@
 #include <QDebug>
 #include "mycoin.h"
 #include "dataconfig.h"
+#include <QPropertyAnimation>
 
 PlayScene::PlayScene(int levelNum)
 {
@@ -43,6 +44,15 @@ PlayScene::PlayScene(int levelNum)
     levelFont.setFamily("华文新魏");
     levelFont.setPointSize(20);
     levelLabel->setFont(levelFont);
+
+    //过关图片
+    QLabel* winLabel = new QLabel;
+    QPixmap tmpPix;
+    tmpPix.load(":/res/LevelCompletedDialogBg.png");
+    winLabel->setGeometry(0,0,tmpPix.width(),tmpPix.height());
+    winLabel->setPixmap(tmpPix);
+    winLabel->setParent(this);
+    winLabel->move( (this->width() - tmpPix.width())*0.5 , -tmpPix.height());
 
     //初始化关卡二位数组
     DataConfig dataConfig;
@@ -121,6 +131,13 @@ PlayScene::PlayScene(int levelNum)
                     }
                     if(isWin)
                     {
+                        QPropertyAnimation * animation1 =  new QPropertyAnimation(winLabel,"geometry");
+                        animation1->setDuration(1000);
+                        animation1->setStartValue(QRect(winLabel->x(),winLabel->y(),winLabel->width(),winLabel->height()));
+                        animation1->setEndValue(QRect(winLabel->x(),winLabel->y()+ 150,winLabel->width(),winLabel->height()));
+                        animation1->setEasingCurve(QEasingCurve::OutBounce);
+                        animation1->start();
+
                         for(int i= 0;i<4; i++)
                         {
                             for(int j=0; j<4; j++)
@@ -128,7 +145,7 @@ PlayScene::PlayScene(int levelNum)
                                 coinBtn[i][j]->isWin=true;
                             }
                         }
-                        qDebug()<<"win";
+
 
                     }
 
