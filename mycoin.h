@@ -18,6 +18,7 @@ public:
     bool isAnimation= false;
     int min=1;
     int max=8;
+    bool isWin=false;
 
     QTimer *timer;
     QTimer *timer2;

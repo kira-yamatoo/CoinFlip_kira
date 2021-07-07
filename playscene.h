@@ -14,6 +14,7 @@ public:
     int levelIndex;
     int gameArray[4][4];
     MyCoin *coinBtn[4][4];
+    bool isWin;
 
 
 signals:

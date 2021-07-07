@@ -84,13 +84,14 @@ PlayScene::PlayScene(int levelNum)
                 coin->changeFlag();
                 gameArray[i][j]=!gameArray[i][j];
 
+                //延时后 翻转四周金币
                 QTimer::singleShot(300,this,[=](){
                     if(coin->pos_x+1< 4)
                     {
                         coinBtn[coin->pos_x+1][coin->pos_y]->changeFlag();
                         gameArray[coin->pos_x+1][coin->pos_y] =!gameArray[coin->pos_x+1][coin->pos_y];
                     }
-                    if(coin->pos_x-1> 0)
+                    if(coin->pos_x-1>= 0)
                     {
                         coinBtn[coin->pos_x-1][coin->pos_y]->changeFlag();
                         gameArray[coin->pos_x-1][coin->pos_y] =!gameArray[coin->pos_x-1][coin->pos_y];
@@ -100,10 +101,35 @@ PlayScene::PlayScene(int levelNum)
                         coinBtn[coin->pos_x][coin->pos_y+1]->changeFlag();
                         gameArray[coin->pos_x][coin->pos_y+1] =!gameArray[coin->pos_x][coin->pos_y+1];
                     }
-                    if(coin->pos_y-1> 0)
+                    if(coin->pos_y-1>= 0)
                     {
                         coinBtn[coin->pos_x][coin->pos_y-1]->changeFlag();
                         gameArray[coin->pos_x][coin->pos_y-1] =!gameArray[coin->pos_x][coin->pos_y-1];
+                    }
+
+                    isWin=true;
+                    for(int i= 0;i<4; i++)
+                    {
+                        for(int j=0; j<4; j++)
+                        {
+                            if(coinBtn[i][j]->coinFlag== 0)
+                            {
+                                isWin=false;
+                                break;
+                            }
+                        }
+                    }
+                    if(isWin)
+                    {
+                        for(int i= 0;i<4; i++)
+                        {
+                            for(int j=0; j<4; j++)
+                            {
+                                coinBtn[i][j]->isWin=true;
+                            }
+                        }
+                        qDebug()<<"win";
+
                     }
 
                 });

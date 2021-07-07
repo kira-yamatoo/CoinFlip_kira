@@ -85,7 +85,7 @@ void MyCoin::changeFlag()
 void MyCoin::mousePressEvent(QMouseEvent *e)
 {
     //当动画执行中 则拦截鼠标事件并返回
-    if(isAnimation)
+    if(isAnimation || isWin)
     {
         return;
     }
